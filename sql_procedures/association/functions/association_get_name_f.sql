@@ -1,0 +1,7 @@
+CREATE FUNCTION `association_get_name_f` (q_id INT) RETURNS VARCHAR(200)
+	READS SQL DATA
+BEGIN
+	DECLARE Result VARCHAR(200) DEFAULT NULL;
+    SELECT ass_Name INTO Result FROM BGM_Assoc WHERE ass_ID=q_id;
+    RETURN Result;
+END;

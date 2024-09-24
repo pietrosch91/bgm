@@ -1,0 +1,10 @@
+CREATE FUNCTION `association_get_code_f`(aID INT) RETURNS VARCHAR(3)
+	READS SQL DATA
+BEGIN
+	DECLARE Res VARCHAR(3) DEFAULT NULL;
+	IF(association_test_f(aID,TRUE)!=1) THEN
+		RETURN NULL;
+	END IF;
+    SELECT ass_Code INTO Res FROM BGM_Assoc WHERE ass_ID=aID;
+    RETURN Res;
+END;

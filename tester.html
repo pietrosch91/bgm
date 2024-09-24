@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.js"></script>
+<script>
+ var socket = io(); //load socket.io-client and connect to the host that serves the page
+
+ function do_query(){
+    var qq=document.getElementById("query").value;
+    socket.emit("query",qq);
+ }
+
+ function clear_query(){
+    document.getElementById("query").value="";
+ }
+
+</script>
+
+</head>
+<body style="background-color:white;">
+
+<input type="text" size="100" id="query"/><br/>
+<button type="button" onclick="clear_query()">Reset</button>
+<button type="button" onclick="do_query()">Esegui</button>
+
+</body>
+</html>

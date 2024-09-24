@@ -1,0 +1,377 @@
+<!-- GENERIC-->
+<div class="form-popup" id="msg_pop" >
+	<div id="msg_body"></div>
+	<div>
+		<button type="button" onclick="hide_popup()">Ok</button>
+	</div>
+</div>
+
+<div class="form-popup" id="confirm_pop" >
+	<div> Conferma Operazione? </div>
+	<div>
+		<button type="button" onclick="hide_popup()">No</button>
+		<button type="button" onclick="confirm_operation()">Si</button>
+	</div>
+</div>
+
+<!--Assignation/Removal to EVENT-->
+<div class="form-popup" id="event_on">
+	<div>
+		<h2 id="event_title"></h2>
+	</div>
+	<div>
+		Fornisci per Evento:
+		<select id="event_select"></select>
+	</div>
+	<div>
+		<button type="button" onclick="hide_popup()">Annulla</button>
+		<button type="button" onclick="event_request()">Affida</button>
+	</div>
+</div>
+
+<!--Opening/closing LOAN-->
+<div class="form-popup" id="foster_on">
+	<div>
+		<h2 id="foster_title"></h2>
+	</div>
+	<div>
+		Affida a:
+		<select id="foster_select"></select>
+	</div>
+	<div>
+		<button type="button" onclick="hide_popup()">Annulla</button>
+		<button type="button" onclick="foster_request()">Affida</button>
+	</div>
+</div>
+
+<!-- Adding Game-->
+<div class="form-popup" id="add_form">
+	<div>
+		<h2>Aggiungi Gioco</h2>
+	</div>
+	<div>
+		Titolo:
+		<input type="text" id="add_title" style="width: 75%" required>
+	</div>
+	<div>
+		<button type="button" onclick="hide_popup()"  style="width: 30%">Annulla</button>
+        <button type="button" onclick="add_request()"  style="width: 30%">Conferma</button>
+	</div>
+</div>
+
+<!--Adding User Privilege-->
+<div class="form-popup" id="aupf">
+	<div>
+		<h2 id="aupf_text"></h2>
+	</div>
+	<input type="hidden" id="aupf_level" required>
+	<div>
+		<select id="aupf_select"></select>
+	</div>
+	<div>
+		<button type="button" onclick="hide_popup()">Annulla</button>
+		<button type="button" onclick="add_user_request()">Aggiungi</button>
+	</div>
+</div>
+
+<!--Editing User Privilege-->
+<div class="form-popup" id="eupf">
+	<div>
+		<h2 id="eupf_text"></h2>
+	</div>
+	<input type="hidden" id="eupf_user" required>
+	<div>
+		<select id="eupf_select">
+			<option value="0">Non Autorizzato</option>
+			<option value="10">Visualizzatore</option>
+			<option value="20">Membro</option>
+		</select>
+	</div>
+	<div>
+		<button type="button" onclick="hide_popup()">Annulla</button>
+		<button type="button" onclick="edit_user_request()">Conferma</button>
+	</div>
+</div>
+
+<!-- Editing Assoc Information-->
+<div class="form-popup" id="eaif" style="width:40%;height:35%">
+	<div>
+		<h2 id="eaif_text"></h2>
+	</div>
+	<input type="hidden" id="eaif_assoc_id" required>
+	<div>
+		<table style="border:none">
+			<tr style="border:none">
+				<td style="border:none;width:25%">Telefono</td>
+				<td style="border:none;width:75%"><input size="40" type="text" id="eaif_phone"/></td>
+			</tr>
+			<tr style="border:none">
+				<td style="border:none;width:25%">Email</td>
+				<td style="border:none;width:75%"><input size="40" type="text" id="eaif_mail"/></td>
+			</tr>
+			<tr style="border:none">
+				<td style="border:none;width:25%">HomePage</td>
+				<td style="border:none;width:75%"><input size="40" type="url" id="eaif_link"/></td>
+			</tr>
+		</table>
+	</div>
+	<div>
+		<button type="button" onclick="hide_popup()">Annulla</button>
+		<button type="button" onclick="eaif_request()">Salva</button>
+	</div>
+</div>
+
+<!--Notes Editing-->
+<div class="form-popup" id="nef" style="width:60%;height:50%">
+	<div>
+		<h2 id="nef_title"></h2>
+	</div>
+	<input type="hidden" id="nef_id" required></input>
+	<div style="flex-grow:10;display:flex;flex-direction:column">
+		<textarea id="nef_notes" style="height:90%;overflow-y:auto"></textarea>
+	</div>
+	<div>
+		<button type="button" onclick="hide_popup()">Annulla</button>
+		<button type="button" onclick="nef_request()">Salva Note</button>
+	</div>
+</div>
+
+
+<div class="form-popup" id="naf" style="width:60%;height:50%">
+	<input type="hidden" id="naf_id" required></input>
+	<div>
+		<h2 id="naf_title"></h2>
+	</div>
+	<div id="naf_notes" style="text-align:left;border: 1px solid #000000;background-color:#FFFFFF;flex-grow:10;overflow-y:auto">
+	</div>
+	<div style="flex-grow:3;display:flex;flex-direction:column">
+		<textarea id="naf_add" style="height:90%;overflow-y:auto"></textarea>
+	</div>
+	<div>
+		<button type="button" onclick="hide_popup()">Annulla</button>
+		<button type="button" onclick="naf_request()">Aggiungi Nota</button>
+	</div>
+</div>
+
+<!--BGG LINKING-->
+<div class="form-popup" id="bgg_check">
+	<div>
+		<h2 id="bgg_check_title"></h2>
+	</div>
+	<div>
+		Ha già un ID assengato.
+	</div>
+	<div>
+		Rieffettuare l'assegnazione?
+	</div>
+	<div>
+		<button type="button" onclick="hide_popup()">Annulla</button>
+		<button type="button" onclick="bgg_check_ok()">Riassegna</button>
+	</div>
+</div>
+
+<div class="form-popup" id="bgg_stp2" style="width:60%" >
+	<div>
+		Scelta BGGID per :
+	</div>
+	<div>
+		<h2 id="bgg_stp2_title"></h2>
+	</div>
+	<div>
+		<select id="bgg_stp2_select"></select>
+	</div>
+	<div>
+		<button type="button" onclick="bgglink_abort()">Annulla</button>
+		<button type="button" onclick="bgglink_skip_to_stp3()">Ins. Manuale</button>
+		<button type="button" onclick="bgglink_stp2_ok()">Conferma</button>
+	</div>
+</div>
+
+<div class="form-popup" id="bgg_stp3" style="width:60%">
+	<div>
+		Imposta BGGID per :
+	</div>
+	<div>
+		<h2 id="bgg_stp3_title"></h2>
+	</div>
+	<div>
+		<input type="number" id="bgg_stp3_number" min="0"/>
+	</div>
+	<div>
+		<button type="button" onclick="bgglink_abort()">Annulla</button>
+		<button type="button" onclick="bgglink_skip_to_stp4()">Set non BGG</button>
+		<button type="button" onclick="bgglink_stp3_ok()">Conferma</button>
+	</div>
+</div>
+
+<div class="form-popup" id="bgg_stp4" style="width: 40%; height: 50%">
+    <div>
+		Aggiungi Informazioni Manualmente per
+	</div>
+	<div>
+		<h2 id="bgg_stp4_title"></h2>
+	</div>
+	<div style="flex-grow:5">
+		<table style="border:none">
+			<tr style="border:none">
+				<td style="border:none;width:25%">Giocatori</td>
+				<td style="border:none;width:75%"><input type="text" size="40" id="bgglink_stp4_pl" name="Players" style="width: 75%" required/></td>
+			</tr>
+			<tr style="border:none">
+				<td style="border:none;width:25%">Età</td>
+				<td style="border:none;width:75%"><input type="text" size="40" id="bgglink_stp4_age" name="Age" style="width: 75%" required/></td>
+			</tr>
+			<tr style="border:none">
+				<td style="border:none;width:25%">Durata</td>
+				<td style="border:none;width:75%"><input type="text" size="40" id="bgglink_stp4_dur" name="Time" style="width: 75%" required/></td>
+			</tr>
+			<tr style="border:none">
+				<td style="border:none;width:25%">Anno</td>
+				<td style="border:none;width:75%"><input type="number" id="bgglink_stp4_year" name="Year" style="width: 75%" min="1950" max="2050" required/></td>
+			</tr>
+			<tr style="border:none">
+				<td style="border:none;width:25%">Copertina</td>
+				<td style="border:none;width:75%"> <input type="url" size="40" id="bgglink_stp4_pic" name="Picture" style="width: 75%" required/></td>
+			</tr>
+			<tr style="border:none">
+				<td style="border:none;width:25%">Link</td>
+				<td style="border:none;width:75%"><input type="url" id="bgglink_stp4_link" size="40" name="BGGLINK" style="width: 75%" required/></td>
+			</tr>
+		</table>
+	</div>
+	<div>
+       <button type="button" onclick="bgglink_abort()"  style="width: 30%">Annulla</button>
+       <button type="button" onclick="bgglink_stp4_ok()"  style="width: 30%">Conferma</button>
+	</div>
+</div>
+
+<div class="form-popup" id="sdaf" style="width:40%">
+	<div>
+		Imposta Slot Documenti per :
+	</div>
+	<div>
+		<h2 id="sdaf_title"></h2>
+	</div>
+	<div>
+		<input type="number" id="sdaf_count" min="1" max="99" value="10"/>
+	</div>
+	<div>
+		<button type="button" onclick="hide_popup()">Annulla</button>
+		<button type="button" onclick="sdaf_request()">Conferma</button>
+	</div>
+</div>
+
+<!--LOAN manage-->
+ <div class="form-popup" id="loan_start_pop">
+	<div>Avvio Prestito Gioco:</div>
+	<div>
+		<h2 id="rls_game"></h2>
+	</div>
+	<div>
+		<b>Prestato a: </b>
+		<input type="text" placeholder="Enter Name" id="rls_name" required/>
+	</div>
+	<div>
+		<button type="button" onclick="start_loan_request()">Conferma</button>
+		<button type="button" onclick="hide_popup()">Annulla</button>
+    </div>
+</div>
+
+<div class="form-popup" id="loan_stop_pop" >
+   <div>Conferma chiusura Prestito:</div>
+   <div>
+		<h2 id="rcv_game"></h2>
+	</div>
+	<div>
+		Prestato a: <b id="rcv_name"></b>
+	</div>
+	<div>
+		<button type="button" onclick="stop_loan_request()">Conferma</button>
+		<button type="button" onclick="hide_popup()">Annulla</button>
+	</div>
+</div>
+
+<!-- Editing EVENT Information-->
+<div class="form-popup" id="eeif" style="width:40%;height:35%">
+	<div>
+		<h2 id="eeif_text"></h2>
+	</div>
+	<input type="hidden" id="eeif_event_id" required>
+	<div>
+		<table style="border:none">
+			<tr style="border:none">
+				<td style="border:none;width:25%">HomePage</td>
+				<td style="border:none;width:75%"><input size="40" type="url" id="eeif_link"/></td>
+			</tr>
+		</table>
+	</div>
+	<div>
+		<button type="button" onclick="hide_popup()">Annulla</button>
+		<button type="button" onclick="eeif_request()">Salva</button>
+	</div>
+</div>
+
+
+<!-- Editing USER Information-->
+<div class="form-popup" id="eupw" style="width:30%;height:25%">
+	<div>
+		<h2>Aggiorna Password</h2>
+	</div>
+	<input type="hidden" id="eupw_usr_id" required>
+	<div>
+		<table style="border:none">
+			<tr style="border:none">
+				<td width="30%" style="text-align: right;border:none"><label for="pwd"> Nuova Password :</label></td>
+				<td width="70%" style="border:none"><input id="usr_pwd" type="password" name="pwd" required/></td>
+			</tr>
+			<tr style="border:none">
+				<td width="30%" style="text-align: right;border:none"><label for="pwd2"> Conferma Password :</label></td>
+				<td width="70%" style="border:none"><input id="usr_pwd2" type="password" name="pwd2" required/></td>
+			</tr>
+		</table>
+	</div>
+	<div>
+		<a id="eupw_err"></a>
+	</div>
+	<div>
+		<button type="button" onclick="hide_popup()">Annulla</button>
+		<button type="button" onclick="eupw_request()">Salva</button>
+	</div>
+</div>
+
+
+<!-- Adding Game-->
+<div class="form-popup" id="eadd_form">
+	<div>
+		<h2>Aggiungi Gioco</h2>
+	</div>
+	<div>
+		Titolo:
+		<input type="text" id="eadd_title" style="width: 75%" required>
+	</div>
+	<div>
+		Proprietario:
+		<input type="text" id="eadd_owner" style="width: 75%" required>
+	</div>
+	<div>
+		<button type="button" onclick="hide_popup()"  style="width: 30%">Annulla</button>
+        <button type="button" onclick="eadd_request()"  style="width: 30%">Conferma</button>
+	</div>
+</div>
+
+<!-- Setting dlink-->
+<div class="form-popup" id="dl_form">
+	<div>
+		<h2>Imposta Link Diretto</h2>
+	</div>
+	<div>
+		<input type="url" id="dl_link" style="width: 75%" required>
+	</div>
+	<div>
+		<button type="button" onclick="hide_popup()"  style="width: 30%">Annulla</button>
+        <button type="button" onclick="dl_request()"  style="width: 30%">Conferma</button>
+	</div>
+</div>
+
+
+

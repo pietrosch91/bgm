@@ -1,0 +1,11 @@
+CREATE FUNCTION `event_test_f` (q_id INT,_f_all BOOLEAN) RETURNS INT
+	READS SQL DATA
+BEGIN
+	DECLARE Result INT DEFAULT NULL;
+	IF(_f_all) THEN
+		SELECT COUNT(*) INTO Result FROM BGM_Events WHERE ev_ID=q_id;
+	ELSE
+		SELECT COUNT(*) INTO Result FROM BGM_Events WHERE ev_ID=q_id AND ev_Enabled=1;
+	END IF;
+    RETURN Result;
+END;

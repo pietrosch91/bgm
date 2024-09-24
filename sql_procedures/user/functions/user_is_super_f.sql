@@ -1,0 +1,15 @@
+CREATE FUNCTION `user_is_super_f` (uid INT) RETURNS INT
+	READS SQL DATA
+BEGIN
+	DECLARE Result INT DEFAULT 0;
+    DECLARE usrSU INT DEFAULT NULL;
+     #TEST IF USER exists
+	IF(user_test_f(uid,FALSE)!=1) THEN
+		RETURN 0;
+	END IF;
+	IF(uid<0) THEN
+		RETURN 1;
+	ELSE
+		RETURN 0;
+	END IF;
+END;

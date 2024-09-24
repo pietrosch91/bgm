@@ -1,0 +1,7 @@
+CREATE FUNCTION `event_get_name_f` (q_id INT) RETURNS VARCHAR(200)
+	READS SQL DATA
+BEGIN
+	DECLARE Result VARCHAR(200) DEFAULT NULL;
+    SELECT ev_Name INTO Result FROM BGM_Events WHERE ev_ID=q_id;
+    RETURN Result;
+END;

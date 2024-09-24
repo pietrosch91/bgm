@@ -1,0 +1,92 @@
+<!-- GENERIC-->
+<div class="form-popup" id="msg_pop" >
+	<div id="msg_body"></div>
+	<div>
+		<button type="button" onclick="hide_popup()">Ok</button>
+	</div>
+</div>
+
+<div class="form-popup" id="confirm_pop" >
+	<div> Conferma Operazione? </div>
+	<div>
+		<button type="button" onclick="hide_popup()">No</button>
+		<button type="button" onclick="confirm_operation()">Si</button>
+	</div>
+</div>
+
+
+<div class="form-popup" id="nup" >
+	<div> <b> Creazione Utente </b></div>
+	<div>
+		<table style="border:none">
+			<tr style="border:none">
+				<td style="border:none;width:25%">Nome</td>
+				<td style="border:none;width:75%"><input size="40" type="text" id="nup_name"/></td>
+			</tr>
+			<tr style="border:none">
+				<td style="border:none;width:25%">Codice</td>
+				<td style="border:none;width:75%"><input size="40" minlength="3" maxlength="3" type="text" id="nup_code"/></td>
+			</tr>
+		</table>
+	</div>
+	<div>
+		<button type="button" onclick="hide_popup()">Annulla</button>
+		<button type="button" onclick="nup_request()">Crea</button>
+	</div>
+</div>
+
+
+
+
+<div class="form-popup" id="nap" >
+	<div> <b> Creazione Associazione </b></div>
+	<div>
+		<table style="border:none">
+			<tr style="border:none">
+				<td style="border:none;width:25%">Nome</td>
+				<td style="border:none;width:75%"><input size="40" type="text" id="nap_name"/></td>
+			</tr>
+			<tr style="border:none">
+				<td style="border:none;width:25%">Codice</td>
+				<td style="border:none;width:75%"><input size="40" minlength="3" maxlength="3" type="text" id="nap_code"/></td>
+			</tr>
+		</table>
+	</div>
+	<div>
+		<button type="button" onclick="hide_popup()">Annulla</button>
+		<button type="button" onclick="nap_request()">Crea</button>
+	</div>
+</div>
+
+
+<!--Adding Admin -->
+<div class="form-popup" id="addadmin">
+	<div>
+		<h2 >Aggiungi Amministratore</h2>
+	</div>
+	<input type="hidden" id="addadmin_to" required>
+	<div>
+		<select id="addadmin_select"></select>
+	</div>
+	<div>
+		<button type="button" onclick="hide_popup()">Annulla</button>
+		<button type="button" onclick="add_adminrequest()">Aggiungi</button>
+	</div>
+</div>
+
+
+<div class="form-popup" id="nep" >
+	<div> <b> Creazione Evento</b></div>
+	<div>
+		<table style="border:none">
+			<tr style="border:none">
+				<td style="border:none;width:25%">Nome</td>
+				<td style="border:none;width:75%"><input size="40" type="text" id="nep_name"/></td>
+			</tr>
+		</table>
+	</div>
+	<div>
+		<button type="button" onclick="hide_popup()">Annulla</button>
+		<button type="button" onclick="nep_request()">Crea</button>
+	</div>
+</div>

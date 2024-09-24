@@ -1,0 +1,11 @@
+CREATE FUNCTION `user_test_f` (q_id INT,f_all BOOLEAN) RETURNS INT
+	READS SQL DATA
+BEGIN
+	DECLARE Result INT DEFAULT NULL;
+	IF(f_all) THEN
+		SELECT COUNT(*) INTO Result FROM BGM_Users WHERE usr_ID=q_id;
+	ELSE
+		SELECT COUNT(*) INTO Result FROM BGM_Users WHERE usr_ID=q_id AND usr_Enabled=1;
+	END IF;
+    RETURN Result;
+END;

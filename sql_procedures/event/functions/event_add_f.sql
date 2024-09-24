@@ -1,0 +1,21 @@
+CREATE FUNCTION `event_add_f`(_name VARCHAR(200),_testonly BOOLEAN) RETURNS VARCHAR(200)
+MODIFIES SQL DATA
+BEGIN
+	DECLARE nev INT;
+	DECLARE newID INT DEFAULT NULL;
+	SELECT COUNT(*) INTO nev FROM BGM_Events WHERE ev_Name=_name;
+	IF(nev > 0) THEN #ALREADY PRESENT
+		RETURN "EVENT already Present";
+	END IF;
+	IF(_testonly) THEN
+		RETURN NULL;
+	END IF;
+	#ACTUAL OP
+	SELECT MAX(ev_ID) INTO newID FROM BGM_Events;
+	IF(newID IS NULL) THEN
+		SET newID=0;
+	END IF;
+	SET newID=newID+1;
+	INSERT INTO BGM_Events (ev_ID,ev_Name,ev_Link) VALUES (newID,_name,'');
+	RETURN NULL;
+END;

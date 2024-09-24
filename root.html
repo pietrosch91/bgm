@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+table {
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+	}
+
+td, th {
+	text-align: center;
+	padding: 8px;
+}
+
+.form-popup {
+	background-color: #E0E0E0;
+	display: none;
+	width: 20%;
+	height: 30%;
+	left:40%;
+	top: 35%;
+	position: fixed;
+	border: 3px solid #000000;
+	z-index: 9;
+	text-align: center;
+}
+
+</style>
+<script>
+
+var login=<!--LOGIN-->;
+var msg=<!--MSG-->;
+
+function prepare_page (){
+	if(login==1){
+		show_user_login();
+		return;
+	}
+	else if(msg!=null){
+		show_message(msg);
+	}
+}
+
+
+window.onload = prepare_page;
+
+var lock_recurr = false;
+var popup_shown="";
+
+//POPUPS
+function show_popup(name){
+	var pp=document.getElementById(name);
+	if(pp){
+		lock_recurr=true;
+		popup_shown=name;
+		pp.style.display="block";
+	}
+}
+
+function hide_popup(){
+	if(lock_recurr){
+		var pp=document.getElementById(popup_shown);
+		if(pp){
+			pp.style.display="none";
+		}
+		lock_recurr=false;
+	}
+}
+
+function show_user_login(){
+	if(lock_recurr) return;
+	document.getElementById("usr_name").value="";
+	 document.getElementById("usr_pwd").value="";
+	show_popup("usr_login");
+}
+
+function show_message(){
+	if(lock_recurr) return;
+	document.getElementById("msg_body").innerHTML=msg;
+	show_popup("msg_popup");
+};
+
+</script>
+</head>
+<body>
+
+<div  class="form-popup" id="usr_login" style="width: 24%; height: 20%;left:38%; top: 40%">
+	<form action="login/" method="POST">
+		<table>
+		<tr>
+			<td width="30%" style="text-align: right;"><label for="usr"> Username :</label></td>
+			<td width="70%"><input id="usr_name" type="text" name="usr" required/></td>
+		</tr>
+		<tr>
+			<td width="30%" style="text-align: right;"><label for="pwdsss"> Password :</label></td>
+			<td width="70%"><input id="usr_pwd" type="password" name="pwdsss"/></td>
+		</tr>
+
+		</table><br/>
+		<button type="submit">Login</button>
+	</form>
+</div>
+
+<div  class="form-popup" id="msg_popup" style="width: 24%; height: 20%;left:38%; top: 40%">
+	<h2>Message</h2>
+	<a id="msg_body"></a><br/><br/>
+	<button onclick="hide_popup()">Ok</button>
+</div>
+
+<form action="usr/login/" method="GET">
+<button onclick="submit">User Login </button>
+</form>
+
+<form action="login/" method="POST">
+	<input type="hidden" name="usr" value="Pietro Ottanelli"/>
+	<input type="hidden" name="pwd" value="TroppaTrippa#91"/>
+	<button type="submit">FAST Login</button>
+</form>
+
+</body>
+</html>

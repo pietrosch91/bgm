@@ -1,0 +1,26 @@
+<!-- GENERIC-->
+<div class="form-popup" id="msg_pop" >
+	<div id="msg_body"></div>
+	<div>
+		<button type="button" onclick="hide_popup()">Ok</button>
+	</div>
+</div>
+
+
+<div  class="form-popup" id="usr_login" style="width: 24%; height: 15%;">
+	<form action="/login/" method="POST">
+		<table style="border:none">
+		<tr  style="border:none">
+			<td width="30%" style="text-align: right;border:none"><label for="usr"> Username :</label></td>
+			<td width="70%" style="border:none"><input id="usr_name" type="text" name="usr" required/></td>
+		</tr>
+		<tr style="border:none">
+			<td width="30%" style="text-align: right;border:none"><label for="pwd"> Password :</label></td>
+			<td width="70%" style="border:none"><input id="usr_pwd" type="password" name="pwd"/></td>
+		</tr>
+
+		</table><br/>
+		<button type="button" onclick="hide_popup()">Annulla</button>
+		<button type="submit">Login</button>
+	</form>
+</div>

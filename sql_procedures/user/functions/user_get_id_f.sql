@@ -1,0 +1,7 @@
+CREATE FUNCTION `user_get_id_f` (q_name VARCHAR(200)) RETURNS INT
+READS SQL DATA
+BEGIN
+	DECLARE Result INT DEFAULT NULL;
+	SELECT usr_ID INTO Result FROM BGM_Users WHERE usr_Name=q_name AND usr_Enabled=1;
+    RETURN Result;
+END;

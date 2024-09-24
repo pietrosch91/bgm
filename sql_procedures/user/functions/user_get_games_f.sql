@@ -1,0 +1,11 @@
+CREATE FUNCTION `user_get_games_f`(uID INT) RETURNS INT
+	READS SQL DATA
+BEGIN
+	DECLARE Res INT DEFAULT NULL;
+	IF(user_test_f(uID,TRUE)!=1) THEN
+		RETURN NULL;
+	END IF;
+	SELECT usr_Games INTO Res FROM BGM_Users WHERE usr_ID=uID;
+    SET Res=Res+1;
+    RETURN Res;
+END;
