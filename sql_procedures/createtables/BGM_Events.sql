@@ -6,6 +6,7 @@ CREATE TABLE `BGM_Events` (
   `ev_Visible` tinyint DEFAULT '1',
   `ev_Lock_Games` tinyint DEFAULT '0',
   `ev_DirectLink` text DEFAULT NULL,
+  `ev_LudoMod` int DEFAULT '1',
   PRIMARY KEY (`ev_ID`),
   UNIQUE KEY `ID_UNIQUE` (`ev_ID`),
   UNIQUE KEY `ev_Name_UNIQUE` (`ev_Name`)

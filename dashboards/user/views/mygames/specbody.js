@@ -16,8 +16,8 @@ async function specbody(reqdata){
         return "";
     }
 
-    var tbuilder=require(global.rootfolder+'/dashboards/tablebuilders/owner_games.js');
-    var table=await tbuilder.build_table("my",reqdata,"user_get_view_mine",true,true,false);
+    var tbuilder=require(global.rootfolder+'/dashboards/tablebuilders/owner_mygames.js');
+    var table=await tbuilder.build_table("my",reqdata);
     // console.log("Table = "+table);
     htmlbody=htmlbody.replace("<!--MY_GAMES-->",table);
     htmlbody=htmlbody.replace("<!--USR-->",reqdata.user_name);

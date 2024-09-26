@@ -91,6 +91,13 @@ var add_game =async function(g_title,ow_id,socket){
     return;
 }
 
+
+//game editing
+var edit_game =async function(g_id,g_title,socket){
+    var result = await global.process_sql_call('CALL collection_set_title('+g_id+',"'+g_title+'",false)');
+    standard_reply(result,socket);
+    return;
+}
 //<!--Adding User To Privilege-->
 var recover_unauthorized_users = async function(to_id,socket){
     var users=await global.process_sql_call("CALL access_get_abilitated_users('"+to_id+"')",null,1);
@@ -506,6 +513,12 @@ var dlink_set = async function (id,dl,socket){
             console.log('received add_game('+g_title+','+ow_id+')');
             add_game(g_title,ow_id,socket);
         });
+
+        socket.on("cet_request",(id,title) => {
+            console.log('received cet_request');
+            edit_game(id,title,socket);
+        });
+
 
 //<!--Adding User To Privilege-->
         socket.on("add_user",(to_id) =>{

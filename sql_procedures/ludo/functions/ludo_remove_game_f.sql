@@ -50,5 +50,7 @@ BEGIN
 			UPDATE BGM_Ludo SET ludo_Count=l_count, ludo_Availability=l_av WHERE ludo_ID=l_id;
 		END IF;
 	END IF;
+	#set the modified flag
+	UPDATE BGM_Events SET ev_LudoMod=1 WHERE ev_ID=g_Event;
 	RETURN NULL;
 END;

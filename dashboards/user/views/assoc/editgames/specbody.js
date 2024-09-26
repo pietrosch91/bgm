@@ -16,8 +16,8 @@ async function specbody(reqdata){
         return "";
     }
 
-    var tbuilder=require(global.rootfolder+'/dashboards/tablebuilders/assoc_games.js');
-    var table=await tbuilder.build_table("my_games",reqdata,"association_get_view_mine",true,true,false);
+    var tbuilder=require(global.rootfolder+'/dashboards/tablebuilders/assoc_mygames.js');
+    var table=await tbuilder.build_table("my_games",reqdata);
     // console.log("Table = "+table);
     htmlbody=htmlbody.replace("<!--MY_GAMES-->",table);
     htmlbody=htmlbody.replaceAll("<!--ASSOC-->",reqdata.assoc_name);

@@ -43,6 +43,7 @@ function init_reqdata(){
     reqdata.assoc_view=null;
     reqdata.assoc_access=null;
     reqdata.selected_view=null;
+    reqdata.dlink=null;
     return reqdata;
 }
 
@@ -124,6 +125,11 @@ async function handle_usr_request (req,res){
         result = await  global.process_sql_call("CALL user_get_privilege("+reqdata.user_id+","+reqdata.event_id+")",res);
         if(result==null) return;
         reqdata.event_access=parseInt(result.l_access);
+
+        result = await  global.process_sql_call("CALL directlink_get_name("+reqdata.event_id+")",null);
+        if(result!=null) reqdata.dlink=result.dlink;
+
+
         if(!verify_access(reqdata.event_access,reqdata.event_view)){
             resp_html.redirect('/?msg=Access Denied');
             return;
@@ -143,6 +149,10 @@ async function handle_usr_request (req,res){
         result = await  global.process_sql_call("CALL user_get_privilege("+reqdata.user_id+","+reqdata.assoc_id+")",res);
         if(result==null) return;
         reqdata.assoc_access=parseInt(result.l_access);
+
+        result = await  global.process_sql_call("CALL directlink_get_name("+reqdata.assoc_id+")",null);
+        if(result!=null) reqdata.dlink=result.dlink;
+
         if(!verify_access(reqdata.assoc_access,reqdata.assoc_view)){
             resp_html.redirect('/?msg=Access Denied');
             return;

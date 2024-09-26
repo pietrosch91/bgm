@@ -82,6 +82,9 @@ function confirm_operation(){
 	if(pending_op==="game_del"){
 		socket.emit("game_del",pending_id);
 	}
+	if(pending_op==="unfoster"){
+		socket.emit("unfoster",pending_id);
+	}
 }
 
 //GENERIC
@@ -175,7 +178,7 @@ function foster_request(){
 
 function foster_unassign(id){
 	if(lock_recurr())  return;
-	socket.emit("unfoster",id);
+	request_confirmation("unfoster",id);
 };
 
 //Game addition
@@ -189,6 +192,17 @@ function add_request(){
 	var add_id=reqdata.assoc_id;
 	if(add_id==null) add_id=reqdata.user_id;
 	socket.emit("add_game",document.getElementById("add_title").value,add_id);
+}
+
+//game editing
+function edit_title(id){
+	recover_game_info(id);
+	document.getElementById("cet_title").value=curr_game;
+	show_popup("cet_form");
+}
+
+function cet_request(){
+	socket.emit("cet_request",curr_id,document.getElementById("cet_title").value);
 }
 
 //<!--Adding User To Privilege-->

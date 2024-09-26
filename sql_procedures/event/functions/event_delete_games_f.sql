@@ -21,6 +21,7 @@ BEGIN
 		IF done THEN
 			LEAVE evdel;
 		END IF;
+		SET Errmsg = ludo_remove_game_f(gid,false);
 		DELETE FROM BGM_Collection WHERE col_ID=gid;
 	END LOOP evdel;
 	CLOSE cur1;

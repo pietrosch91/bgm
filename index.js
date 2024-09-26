@@ -8,6 +8,8 @@ global.mysql=require('mysql2');
 global.mysql_pro = require('mysql2/promise');
 global.rootfolder=__dirname;
 
+global.ludotables = [];
+
 var sql_loader = require('./sql_loader.js');
 
 // global.user_handler = require('./user/user_dashboard.js');
@@ -142,6 +144,11 @@ app.get('/logout/', (req,res) =>{
   usr_log.logout(req,res);
 });
 
+app.get('/direct/*', (req,res) =>{
+  var subpath=req.path.substring(8);
+  //recover the ID
+  evade_direct_request(subpath,res);
+});
 
 /*
 global.app.get('/', (req, res) => {
@@ -179,8 +186,65 @@ global.app.post('/admin/user/login', (req,res) => {
 });*/
 
 server.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Example app listening on port ${port}`);
+  // updateLudoTable("ludofiera");
 });
 
+async function evade_direct_request(evname,res){
+  var body=await prepare_direct_request(evname);
+
+  if(body==null){
+      res.writeHead(404, {'Content-Type': 'text/html'}); //display 404 on error
+     return res.end("404 Not Found");
+  }
+  else{
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.write(body,'utf8'); //write data from index.html
+    return res.end("",'utf8');
+  }
+}
+
+async function prepare_direct_request(evname){
+  var result=await global.process_sql_call("CALL directlink_get_id('"+evname+"')",null);
+  var evid=result._id;
+  if(evid==null){
+    return null;
+  }
+  if(evid<0){
+    return null;
+  }
+  //Recupero le informazioni
+  result=await global.process_sql_call("CALL event_get_ludo_mod("+evid+")",null);
+  var reload=result.reload;
+  if(reload==1 || ludotables[evid]==null){
+    await updateLudoTable(evid);
+  }
+  return ludotables[evid];
+}
+
+
+global.updateLudoTable = async function(evid){
+  if(evid==null) return;
+  var htmlbody="";
+  try {
+    const data = fs.readFileSync(global.rootfolder+'/dashboards/direct/direct_dashboard.html', 'utf8');
+    // console.log(data);
+    htmlbody=data.toString();
+  } catch (err) {
+    console.error(err);
+    return;
+  }
+  if(evid>0){
+    var reqdata= [];
+    reqdata.event_id=evid;
+    var tbuilder=require(global.rootfolder+'/dashboards/tablebuilders/event_games.js');
+    var table=await tbuilder.build_table("my_games",reqdata);
+    htmlbody=htmlbody.replace("<!--BODY-->",table);
+     var result=await global.process_sql_call("CALL event_ack_mod("+evid+")",null);
+  }
+  ludotables[evid]=htmlbody;
+  console.log(htmlbody);
+  // console.log(ludotables);
+}
 
 
