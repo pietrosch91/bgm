@@ -1,7 +1,18 @@
 var express = require('express')
 var session = require('express-session');
 var app = express()
-var server = require('http').createServer(app);
+var https = require('https');
+var fs = require('fs');
+
+
+
+const options = {
+  pfx: fs.readFileSync('/home/ottanellip/sslcerts/test_cert.pfx'),
+  passphrase: 'sample',
+};
+
+var server=https.createServer(options, app);
+
 global.io = require('socket.io')(server); //require socket.io module and pass the http object (server)
 
 global.mysql=require('mysql2');
@@ -71,7 +82,7 @@ app.use(session({
   cookie: { maxAge: 1000*60*60 }
 }));
 
-var fs = require('fs');
+
 
 const port = 3000;
 
