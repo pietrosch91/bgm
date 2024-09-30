@@ -215,6 +215,7 @@ var bgg_assign =async  function (id,game,socket){
         socket.emit('c_err',result.Errmsg);
         return;
     }
+    console.log("Proceeding wuth the research");
     var exec= require('child_process').exec;
     exec('searchbgg "'+game+'"', (err, stdout, stderr) => {
         if (err) {

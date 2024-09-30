@@ -1,4 +1,4 @@
-CREATE FUNCTION `ludo_empty_table_f`(eid INT) RETURNS VARCHAR(200)
+CREATE FUNCTION `ludo_empty_table_f`(eid INT,keepshelf BOOLEAN) RETURNS VARCHAR(200)
 MODIFIES SQL DATA
 BEGIN
 	DECLARE _check INT;
@@ -31,7 +31,11 @@ BEGIN
             IF done THEN
 				LEAVE l_clearcol;
 			END IF;
-			UPDATE BGM_Collection SET col_OnShelf=0, col_Ludo_ID=NULL WHERE col_ID=l_id;
+			IF(keepshelf) THEN
+                UPDATE BGM_Collection SET col_Ludo_ID=NULL WHERE col_ID=l_id;
+            ELSE
+                UPDATE BGM_Collection SET col_OnShelf=0, col_Ludo_ID=NULL WHERE col_ID=l_id;
+            END IF;
 		END LOOP l_clearcol;
         CLOSE cur2;
         RETURN NULL;

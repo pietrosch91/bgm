@@ -13,6 +13,6 @@ BEGIN
 	IF(_testonly) THEN
 		RETURN NULL;
 	END IF;
-	SET Errmsg=ludo_empty_table_f(eid);
+	SET Errmsg=ludo_empty_table_f(eid,false);
 	RETURN Errmsg;
 END;

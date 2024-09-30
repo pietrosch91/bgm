@@ -10,7 +10,7 @@ BEGIN
 		RETURN NULL;
 	END IF;
 	#operation
-	SET err=ludo_empty_table_f(eid);
+	SET err=ludo_empty_table_f(eid,TRUE);
 	IF(err IS NOT NULL) THEN
 		RETURN err;
 	END IF;

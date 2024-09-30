@@ -9,6 +9,10 @@
 using namespace std;
 bool file_end=false;
 
+char char_to_encode[] = {'!','#','$','&','\'','(',')','*','+',',','/',':',';','=','?','@','[',']'};
+std::string perc_encoded[]={"%21","%23","%24","%26","%27","%28","%29","%2A","%2B","%2C","%2F","%3A","%3B","%3D","%3F","%40","%5B","%5D"};
+
+
 
 std::string getline_until(std::ifstream &iff,std::string match){
     if(file_end) return "";
@@ -37,6 +41,7 @@ std::string extract(std::string src,std::string ldelim,std::string rdelim){
 void mywget(std::string url,std::string dest){
     char cmd[5000];
     sprintf(cmd,"wget -q -O %s '%s'",dest.c_str(),url.c_str());
+    std::cout<<cmd<<"\n";
     while(system(cmd)!=0){
         sleep(1);
 #ifdef HARDDEBUG
@@ -55,16 +60,37 @@ std::string process(std::string input){
     return output;
 }
 
+
+std::string encode(std::string in, char match, std::string rep){
+    std::string result=in;
+    while(true){
+        auto pos=result.find_first_of(match);
+        if(pos==result.npos) break;
+        result=result.replace(pos,1,rep);
+    }
+    return result;
+}
+
+std::string percent_encode(std::string in){
+    std::string res=in;
+    for(int i=0;i<18;i++){
+        res=encode(res,char_to_encode[i],perc_encoded[i]);
+    }
+    return res;
+}
+
 void search_game(std::string title){
     std::vector<std::string>ids;
     std::vector<std::string>titles;
     std::vector<std::string>years;
     // struct gameinfo res;
     // res.BGGID=bgg_index;
+    std::cout<<"Title is: "<<title<<"\n";
     char url[1000];
-    std::string ptitle=process(title);
+    std::string ptitle=percent_encode(title);
+    std::cout<<"PTitle is: "<<ptitle<<"\n";
     sprintf(url,"https://boardgamegeek.com/geeksearch.php?action=search&objecttype=boardgame&q=%s",ptitle.c_str());
-    // std::cout<<url<<"\n";
+    std::cout<<url<<"\n";
     mywget(std::string(url),"/tmp/bggdump");
     std::ifstream iff("/tmp/bggdump");
     std::string line;

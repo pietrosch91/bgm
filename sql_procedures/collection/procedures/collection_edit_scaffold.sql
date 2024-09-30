@@ -6,7 +6,7 @@ BEGIN
     IF(Errmsg IS NULL) THEN
 		SET Result=0;
 	ELSE
-        SET Errmsg=CONCAT("collection_append_notes : ",Errmsg);
+        SET Errmsg=CONCAT("collection_edit_scaffold : ",Errmsg);
 		SET Result=-1;
 	END IF;
     SELECT Result,Errmsg;

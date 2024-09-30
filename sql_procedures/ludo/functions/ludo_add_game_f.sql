@@ -26,7 +26,7 @@ BEGIN
 	END IF;
 	#operation
 	#recover L_ID if present
-	IF(g_bggid>0) THEN #good case: bggid is >0
+	IF(g_bggid IS NOT NULL) THEN #good case: bggid is >0
 		SELECT ludo_ID INTO l_id FROM BGM_Ludo WHERE ludo_Event_ID=g_event AND ludo_BGGID=g_bggid;
 	ELSE
 		SELECT ludo_ID INTO l_id FROM BGM_Ludo WHERE ludo_Event_ID=g_event AND ludo_Title=g_title;
