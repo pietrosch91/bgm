@@ -27,18 +27,23 @@ async function specbody(reqdata){
         </tr>\n\
     </table><br/>\n';
 
+
+     var result=await global.process_sql_call("CALL event_get_slots("+reqdata.event_id+")");
+     var nslots=result.slots;
+
+
     txt+='\
 <table>\n\
     <tr>\n\
-        <td style="width:20%;border:none"><b>Gestione Cassetti Documenti</b></td>\n\
-        <td style="width:20%;border:none"><button onclick="set_doc_slots()">Imposta numero cassetti</button></td>\n\
-        <td style="width:20%;border:none"/>\n\
+        <td style="width:20%;border:none"><b>Cassetti Documenti</b></td>\n\
+        <td style="width:20%;border:none">'+nslots+'</td>\n\
+        <td style="width:20%;border:none"><button onclick="set_doc_slots()">Cambia numero cassetti</button></td>\n\
         <td style="width:20%;border:none"/>\n\
         <td style="width:20%;border:none"/>\n\
     </tr>\n\
 </table><br/>\n';
 
-    var result=await global.process_sql_call("CALL event_get_visible("+reqdata.event_id+")");
+    result =await global.process_sql_call("CALL event_get_visible("+reqdata.event_id+")");
     var visible="checked";
     if(result == null){
         visible = "";
@@ -50,13 +55,17 @@ async function specbody(reqdata){
         visible = "";
     }
 
+    result=await global.process_sql_call("CALL directlink_get_name("+reqdata.event_id+")");
+
+    var dlink=result.dlink;
     txt+='<table>\n\
         <tr>\n\
             <td style="width:20%;border:none"><b>Visibilità Pubblica</b></td>\n\
             <td style="width:20%;border:none"><input id="ev_visib" '+visible+' type="checkbox" onchange="event_change_visibility()"/></td>\n\
-            <td style="width:20%;border:none"/>\n\
-            <td style="width:20%;border:none">Percorso sito:</td>\n\
-            <td style="width:20%;border:none"><button onclick="set_dlink('+reqdata.event_id+')">Imposta</button></td>\n\
+            <td colspan="2" style="width:40%;border:none">\
+            Percorso: <a href="/direct/'+dlink+'" target="blank">https://ottogames.ddns.net:3000/direct/'+dlink+'</a>\
+            </td>\n\
+            <td style="width:20%;border:none"><button onclick="set_dlink('+reqdata.event_id+')">Cambia</button></td>\n\
         </tr>\n\
     </table><br/>\n';
 

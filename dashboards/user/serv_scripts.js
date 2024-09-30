@@ -466,8 +466,29 @@ var eadd_game = async function(title,owner,eid,socket){
     return;
 }
 
+
+
 //edit dlink
+var dlink_get = async function (id,socket){
+    var result=await global.process_sql_call("CALL directlink_get_name("+id+")",null);
+    if(result.dlink==null){
+        socket.emit("dl_get","");
+    }
+    else{
+        socket.emit("dl_get",result.dlink);
+    }
+    return;
+}
+
 var dlink_set = async function (id,dl,socket){
+    if(dl == null){
+        socket.emit("c_err","Name is too short");
+        return;
+    }
+    if(dl.length<4){
+        socket.emit("c_err","Name is too short");
+        return;
+    }
     var result=await global.process_sql_call("CALL directlink_set_link("+id+",'"+dl+"',false)",null);
      standard_reply(result,socket);
     return;
@@ -687,6 +708,10 @@ var dlink_set = async function (id,dl,socket){
             eadd_game(title,owner,eid,socket);
         });
 
+        socket.on("dl_get",(id)=>{
+           console.log("received dl_get");
+           dlink_get(id,socket);
+        });
 
         socket.on("dl_req",(id,dl)=>{
            console.log("received dl_req");

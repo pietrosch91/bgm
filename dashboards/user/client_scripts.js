@@ -593,10 +593,14 @@ function eadd_request(){
 
 
 function set_dlink(id){
-	document.getElementById("dl_link").value="";
 	curr_id=id;
-	show_popup("dl_form");
+	socket.emit("dl_get",id);
 }
+
+socket.on("dl_get",(dlink)=>{
+	document.getElementById("dl_link").value=dlink;
+	show_popup("dl_form");
+});
 
 function dl_request(){
 	socket.emit("dl_req",curr_id,document.getElementById("dl_link").value);
