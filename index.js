@@ -7,8 +7,8 @@ var fs = require('fs');
 
 
 const options = {
-  pfx: fs.readFileSync('/home/ottanellip/sslcerts/test_cert.pfx'),
-  passphrase: 'sample',
+  key : fs.readFileSync('/home/ottanellip/sslcerts/noip/myserver.key'),
+  cert : fs.readFileSync('/home/ottanellip/sslcerts/noip/ottogames_ddns_net_chain.pem'),
 };
 
 var server=https.createServer(options, app);

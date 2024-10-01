@@ -1,0 +1,14 @@
+[Unit]
+Description=BGM service
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=ottanellip
+ExecStart=/home/ottanellip/.nvm/versions/node/v22.5.1/bin/node /home/ottanellip/bgm/index.js
+
+[Install]
+WantedBy=multi-user.target

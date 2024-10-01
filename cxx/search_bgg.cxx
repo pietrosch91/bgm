@@ -41,7 +41,7 @@ std::string extract(std::string src,std::string ldelim,std::string rdelim){
 void mywget(std::string url,std::string dest){
     char cmd[5000];
     sprintf(cmd,"wget -q -O %s '%s'",dest.c_str(),url.c_str());
-    std::cout<<cmd<<"\n";
+ //  std::cout<<cmd<<"\n";
     while(system(cmd)!=0){
         sleep(1);
 #ifdef HARDDEBUG
@@ -85,12 +85,12 @@ void search_game(std::string title){
     std::vector<std::string>years;
     // struct gameinfo res;
     // res.BGGID=bgg_index;
-    std::cout<<"Title is: "<<title<<"\n";
+   // std::cout<<"Title is: "<<title<<"\n";
     char url[1000];
     std::string ptitle=percent_encode(title);
-    std::cout<<"PTitle is: "<<ptitle<<"\n";
+    //std::cout<<"PTitle is: "<<ptitle<<"\n";
     sprintf(url,"https://boardgamegeek.com/geeksearch.php?action=search&objecttype=boardgame&q=%s",ptitle.c_str());
-    std::cout<<url<<"\n";
+    //std::cout<<url<<"\n";
     mywget(std::string(url),"/tmp/bggdump");
     std::ifstream iff("/tmp/bggdump");
     std::string line;
