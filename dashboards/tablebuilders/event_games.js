@@ -12,6 +12,9 @@ function create_line(data_in){
     var p_data=data_in
     // console.log(p_data);
     var _av=p_data._availability;
+
+    var avtxt="&#10003";
+    if(_av==0) avtxt="&#10005";
     var html_table_temp="";
 
     if(_av != 0){
@@ -40,7 +43,6 @@ function create_line(data_in){
         html_table_temp+='<td><img src="'+_pic+'" alt="Missing" height="128" width="256" style="object-fit:contain"></td>';
     }
 
-    html_table_temp+='<td>'+_av+'</td>';
     if(p_data._pl != null){
         html_table_temp+='<td>'+p_data._pl+'</td>';
         html_table_temp+='<td>'+p_data._age+'</td>';
@@ -51,6 +53,7 @@ function create_line(data_in){
         html_table_temp+='<td/>';
         html_table_temp+='<td/>';
     }
+    html_table_temp+='<td style="font-size : 48px">'+avtxt+'</td>';
 
     html_table_temp+="</tr>";
     return html_table_temp;
@@ -65,10 +68,10 @@ function create_tablecontent(sql_result,wrapname){
     html_table_out='<thead><tr>'
     html_table_out+='<th width=\"35%\">Titolo</th>';
     html_table_out+='<th width=\"15%\">Copertina</th>';
-    html_table_out+='<th width=\"10%\">Disponibilità</th>';
     html_table_out+='<th width=\"10%\">Giocatori</th>';
     html_table_out+='<th width=\"10%\" >Età</th>';
     html_table_out+='<th width=\"10%\" >Durata</th>';
+    html_table_out+='<th width=\"10%\">Disponibilità</th>';
     html_table_out+='</tr></thead>';
     html_table_out+='<tbody>\n';
 

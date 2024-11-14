@@ -60,16 +60,23 @@ function create_tablecontent(sql_result,wrapname){
     html_table_out+='<th width=\"5%\" \">Note</th>';
     html_table_out+='</tr></thead>';
     html_table_out+='<tbody>\n';
+    var html_table_loans_out=html_table_out;
 
     if(sql_result!=null){
         for(let i=0;i<sql_result.length;i++){
-            html_table_out+=create_line(sql_result[i])+"\n";
+ 	   if(sql_result[i].Available==0){
+              html_table_loans_out+=create_line(sql_result[i])+"\n";
+           }
+           else{
+              html_table_out+=create_line(sql_result[i])+"\n";
+           }
         }
     }
 
     if(wrapname != null) html_table_out='<table id="'+wrapname+'">\n'+html_table_out+'</table>\n';
+    if(wrapname != null) html_table_loans_out='<table style="margin-bottom:1cm" id="'+wrapname+'_loans">\n'+html_table_loans_out+'</table>\n';
     // console.log(html_table_out);
-    return html_table_out;
+    return html_table_loans_out+'\n\n'+html_table_out;
 }
 
 var build_table= async function (wrapname,reqdata){

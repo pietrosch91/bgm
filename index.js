@@ -79,7 +79,7 @@ app.use(session({
   secret: 'ASdyafy80a08235b9guai',
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 1000*60*60 }
+  cookie: { maxAge: 1000*60*60*3 }
 }));
 
 
